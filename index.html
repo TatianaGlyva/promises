@@ -1,0 +1,144 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT HW3</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Есть участок кода! обернуть в try catch нужный участок кода и выбросить ошибку если getResult возвращает undefined
+        function getResult() {
+            var obj = {
+                name: 'Sergei',
+                lastName: 'Shakhov'
+            }
+            return
+            obj;
+        }
+        const a = getResult();
+        console.log('RESULT', a);
+
+        try {
+            const a = getResult();
+            if (getResult() === undefined) {
+                throw new Error('Method returns undefined');
+            }
+        }catch (e) {
+            console.log(e);
+        }
+
+
+        //2) исправить код чтобы консоль логи показывали от 0 до 10, и написать почему сейчас выводит десять десяток!!
+        for (var i = 0; i < 10; i++) {
+            setTimeout(() => console.log(i), 0);
+        }
+        //  первым выполниться цикл for и i будет равен 10. в setTimeout
+        //  всегда будет попадать 10. let -- это блочный элемент, который образует свою область с конкретным значением
+
+        for (let i = 0; i < 10; i++) {
+            setTimeout(() => console.log(i), 0);
+        }
+
+        // или значение i с цикла for передать третьим параметром в setTimeout.
+
+        for (var i = 0; i < 10; i++) {
+            setTimeout((val) => console.log(val), 0, i);
+        }
+
+        // 3) Есть код!! В какой последовательности выполнится!
+        function getDatas() {
+            return [
+                {
+                    name: "Vasia"
+                },
+                {
+                    name: "Boria"
+                },
+                {
+                    name: "Misha"
+                },
+            ]
+        }
+        const res = getDatas();
+        console.log('RES', res);
+        setTimeout(() => console.log('settimeout1'), 100);
+        setTimeout( () => console.log('settimeout'), 10);
+        console.log('One');
+        console.log('two');
+
+        1)  console.log('RES', res);
+        2)  console.log('One');
+        3)  console.log('two');
+        4)  setTimeout( () => console.log('settimeout'), 10);
+        5)  setTimeout(() => console.log('settimeout1'), 100);
+
+        //4) Что выведет alert в setTimeOut
+        setTimeout(function () {
+            alert(i); // выводит 1000000
+        }, 100);
+
+        for (var i = 0; i < 1000000; i++) {
+        }
+
+
+        // 5) Есть функция funct! Сделать из нее функцию конструктор которая создает обьект со свойствами name lastName
+        function funct(name, lastName) {
+            this.name = name;
+            this.lastName = lastName;
+        }
+        // 6) Создать функцию конструктор, которая принимает обьект и берет только lastName и position и создает обьект с этих свойств
+        function factory({lastName, position}) {
+            this.lastName = lastName;
+            this.position = position;
+
+            return {
+                name: 'ZINA',
+                lastName,
+                position
+            };
+        }
+
+        let result = new factory({ name: 'Sergei', lastName: 'Shakhov', height: 188, position: 'Software developer' });
+
+
+        // 7) Сделайте так чтобы выболнялось settimeout1 RES RES1
+        setTimeout(() => console.log('settimeout1'), 100);
+        console.log('RES', res);
+        console.log('RES1', res);
+
+        let promise = new Promise((resolve, reject) => {
+            setTimeout(() => resolve('settimeout1'), 100)
+        }).then((data) => {
+            console.log(data);
+            console.log('RES');
+            console.log('RES1');
+        });
+
+        // 8) Есть код! Почему строчка с комментарием покажет {misha: NADUSHA}! Сделать так чтобы a.getObject(); вернул {misha: 'misha'}
+        // то есть должны быть независимые обьекты!!
+        function newFactory(obj) {
+            var object = obj;
+
+            return {
+                getObject: function() {
+                    return {...object} // возвращает копию объекта
+                }
+            };
+        }
+        var a = newFactory({misha: 'misha'});
+        var k = a.getObject();
+        // {misha: 'mischa'}
+        k.misha = 'NADUSHA';
+        // {misha: 'NADUSHA'}
+        a.getObject();
+        // {misha: 'mischa'}
+
+        // КОММЕНТАРИЙ!!! покажет NADUSHA
+        // k  и a ссылаются на один и тот же объект. значение свойства презаписывается.
+    </script>
+    <script src="index.js"></script>
+</body>
+
+</html>
